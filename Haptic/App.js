@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, Vibration, TouchableHighlight, Alert } from 're
 const height = '100%';
 const width = '100%';
 export default class App extends React.Component {
-  onClick() {
-    Alert.alert("Button clicked!")
+  onClick(event) {
+    Alert.alert("Coordinates are X: ${event.nativeEvent.locationX} Y: ${event.nativeEvent.locationY}")
   }
 
   render() {
