@@ -1,61 +1,94 @@
 import React from 'react';
-import { StyleSheet, Text, View, Vibration, TouchableHighlight, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, Filesystem, NavigatorIOS, View, TouchableOpacity, Vibration, TouchableHighlight, Alert } from 'react-native';
+import { Camera, Permissions } from 'expo';
+import axios from 'axios';
+import Tts from 'react-native-tts';
 
 const height = '100%';
 const width = '100%';
 
+const CLOUD_VISION_API_KEY = 'AIzaSyCC9soywijHxqWN7JnRoK7hJBdeOpkllNg';
+const cloudVisionUri = 'https://vision.googleapis.com/v1/images:annotate?key=' + CLOUD_VISION_API_KEY;
+
 export default class TextRecognition extends React.Component {
+  state = {
+    hasCameraPermission: null,
+    type: Camera.Constants.Type.back,
+  };
 
-  handleScroll(event) {
-    // Assume that position always starts at the top
-    // Starting point for Y is 0, ending point for Y is -200
-    var yCoordinate = event.nativeEvent.contentOffset.y
-    var yCoordinatePercentage = yCoordinate / 200
-    const DURATION = 10000
-    const PATTERN_FAST = [100, 100, 100]
-    const PATTERN_MEDIUM = [100, 400, 400]
-    const PATTERN_SLOW = [100, 700, 700]
-    const PATTERN_VERY_SLOW = [100, 1000, 1000]
-
-    console.log("Coordinates are X: " + event.nativeEvent.contentOffset.x + "Y: " + event.nativeEvent.contentOffset.y)
-    console.log("Percentage is " + yCoordinatePercentage)
-    if (yCoordinatePercentage <= .2 ) {
-      Vibration.vibrate(PATTERN_FAST)
-
-    }
-    else if (yCoordinatePercentage <= .4 && yCoordinatePercentage > .2 ) {
-      Vibration.vibrate(PATTERN_MEDIUM)
-
-    }
-    else if (yCoordinatePercentage <= .6 && yCoordinatePercentage > .8 ) {
-      Vibration.vibrate(PATTERN_SLOW)
-
-    }
-    else if (yCoordinatePercentage <= .8 && yCoordinatePercentage > 1 ) {
-      Vibration.vibrate(PATTERN_VERY_SLOW)
-
-    }
+  async componentWillMount() {      
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' });
   }
+  
+  takePicture = async function() {
+      if (this.camera) {
+        
+        this.camera.takePictureAsync({base64: true}).then((data) => {
+          console.log('Took Photo')
+          axios.post(cloudVisionUri, {
+            "requests":[
+              {
+                "image":{
+                  "content": data.base64
+                },
+                "features":[
+                  {
+                    "type":"TEXT_DETECTION",
+                    "maxResults":1
+                  }
+                ]
+              }
+            ]
+          })
+          .then(function (response) {
+            let firstResponse = response.data.responses[0];
+            if (firstResponse) {
+              let text = firstResponse.fullTextAnnotation.text;
+              console.log('found text: ', text);
+              Tts.speak(text);
+            }
+          })
+          .catch(function (error) {
+            console.log(error, "error");
+          });
+          Vibration.vibrate();
+        });
+      }
+  };
 
   render() {
-    return (
-      <ScrollView style={styles.container} onScroll = { this.handleScroll } scrollEventThrottle = {16}>
-      <View style={styles.text}>
-      <Text>Welcome! Skim your finger to navigate.</Text>
-      </View>
-      </ScrollView>
-    );
+    const { hasCameraPermission } = this.state;
+    if (hasCameraPermission === null) {
+      return <View />;
+    } else if (hasCameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <Camera ref={ref => { this.camera = ref; }} style={{ flex: 1 }} type={this.state.type}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: 'transparent',
+                flexDirection: 'row',
+              }}>
+              <TouchableOpacity
+                style={{
+                  flex: 0.1,
+                  alignSelf: 'flex-end',
+                  alignItems: 'center',
+                }}
+                onPress={this.takePicture.bind(this)}>
+                <Text
+                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                  {' '}Capture Photo{' '}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Camera>
+        </View>
+      );
+    }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height,
-    width,
-    backgroundColor: 'black',
-  },
-  text: {
-    backgroundColor: 'white'
-  }
-});
