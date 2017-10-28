@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Vibration, TouchableHighlight, ScrollView, Alert } from 'react-native';
+import Tts from 'react-native-tts';
 
 const height = '100%';
 const width = '100%';
@@ -17,6 +18,7 @@ export default class App extends React.Component {
     console.log("Percentage is " + yCoordinatePercentage)
     if (yCoordinatePercentage <= .2 ) {
       Vibration.vibrate(PATTERN)
+
     }
   }
 
