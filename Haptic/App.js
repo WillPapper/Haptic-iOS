@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Vibration, TouchableHighlight, Alert } from 'react-native';
 
+const height = '100%';
+const width = '100%';
 export default class App extends React.Component {
   onClick() {
     Alert.alert("Button clicked!")
@@ -11,11 +13,9 @@ export default class App extends React.Component {
       const PATTERN = [1000, 2000, 3000]
       Vibration.vibrate(PATTERN)
     return (
-      <TouchableHighlight onPress = { (event) => this.onClick(event) }>
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <TouchableHighlight style={styles.container} onPress = { (event) => this.onClick(event) }>
+      <View style={styles.text}>
+      <Text>Welcome! Skim your finger to navigate.</Text>
       </View>
       </TouchableHighlight>
     );
@@ -25,8 +25,13 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    height,
+    width,
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {
+    backgroundColor: 'white'
+  }
 });
