@@ -22,8 +22,8 @@ Given that 90% of the world's visually impaired population live in developing co
 ### Design Considerations
 Only 13% of the visually impared market is fully blind, which means that we have to design an experience that uses AI that augments physical and digital experiences for broad spectrum of users, some who are fully visually impaired and others who are less. As such, it will be important to design an experience that uses a wide range of sensory experiences including:
 
-1. Auditory: Includes web and text to speech as well as other auditory based cues
-2. Tactile: Touch-based cues 
+1. Auditory: Includes image and text to speech as well as other auditory based cues
+2. Tactile: Touch-based cues to 
 3. Visual: Basic and/or varying level of visual object cues
 
 ### Technology Considerations
@@ -34,11 +34,13 @@ Only 13% of the visually impared market is fully blind, which means that we have
 
 ## The Protype: 
 
-###
-Our prototype repurposes old or recycled touchscreen phones in developed markets where and uses image and text based recognition to provide auditory and tactile queues. 
+### Overview
+Our prototype repurposes old or recycled touchscreen phones in developed markets where and uses image and text based recognition to provide auditory and tactile queues using haptic feedback:
 
-### Haptic feedback
-Haptic feedback often referred to as simply "haptics", is the use of the sense of touch in a user interface design to provide information to an end user. When referring to mobile phones this generally means the use of vibrations from the device's vibration alarm to denote that a touchscreen button has been pressed. In this particular example, the phone would vibrate slightly in response to the user's activation of an on-screen control, making up for the lack of a normal tactile response that the user would experience when pressing a physical button.
+1. 
+
+#### Haptic feedback
+Haptic feedback  is the use of the sense of touch in a user interface design to provide information to an end user. When referring to mobile phones this generally means the use of vibrations from the device's vibration alarm to denote that a touchscreen button has been pressed. In this particular example, the phone would vibrate slightly in response to the user's activation of an on-screen control, making up for the lack of a normal tactile response that the user would experience when pressing a physical button.
 
 ### Artificial intelligence:
 
@@ -47,9 +49,5 @@ Our Haptic feedback for visually impaired users
 
 ### Future Iterations:
 A future iteration of this model
-
-
-## Prototype Overview
-Our prototype provides
 
 
