@@ -5,7 +5,7 @@
 
 ### How do we use artificial intelligence to make our digital tools more accessible to everyone?
 
-Visually impaired internet users like their sighted counterparts, benefit
+Visually impaired internet users like their sighted counterparts, benefit tremendously from the information and services the web has to offer. However, as web pages have become more complex the "screen readers" that visually impared users 
 
 ## Context
 High level research into the potential market of visually impaired users revealed a global market reach of 285 million visually impaired individidals worldwide. Of that population: 
