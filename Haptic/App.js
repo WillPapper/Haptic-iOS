@@ -19,21 +19,31 @@ export default class App extends React.Component {
 
     console.log("Coordinates are X: " + event.nativeEvent.contentOffset.x + "Y: " + event.nativeEvent.contentOffset.y)
     console.log("Percentage is " + yCoordinatePercentage)
-    if (yCoordinatePercentage <= .2 ) {
-      Vibration.vibrate(PATTERN_FAST)
+    if (yCoordinatePercentage < .2) {
+      Vibration.cancel()
+    }
+    if (yCoordinatePercentage >= .2 && yCoordinatePercentage < .4) {
+      Vibration.cancel()
+      Vibration.vibrate(PATTERN_FAST,true)
+      console.log("FAST")
 
     }
-    else if (yCoordinatePercentage <= .4 && yCoordinatePercentage > .2 ) {
-      Vibration.vibrate(PATTERN_MEDIUM)
+    if (yCoordinatePercentage >= .4 && yCoordinatePercentage < .6 ) {
+      Vibration.cancel()
+      Vibration.vibrate(PATTERN_MEDIUM, true)
+      console.log("MEDIUM")
 
     }
-    else if (yCoordinatePercentage <= .6 && yCoordinatePercentage > .8 ) {
-      Vibration.vibrate(PATTERN_SLOW)
+    if (yCoordinatePercentage >= .6 && yCoordinatePercentage < .8 ) {
+      Vibration.cancel()
+      Vibration.vibrate(PATTERN_SLOW, true)
+      console.log("SLOW")
 
     }
-    else if (yCoordinatePercentage <= .8 && yCoordinatePercentage > 1 ) {
-      Vibration.vibrate(PATTERN_VERY_SLOW)
-
+    if (yCoordinatePercentage >= .8 && yCoordinatePercentage < 1 ) {
+      Vibration.cancel()
+      Vibration.vibrate(PATTERN_VERY_SLOW, true)
+      console.log("VERY SLOW")
     }
   }
 
