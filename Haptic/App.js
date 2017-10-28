@@ -7,6 +7,8 @@ export default class App extends React.Component {
 
   handleScroll(event) {
     console.log("Coordinates are X: " + event.nativeEvent.contentOffset.x + "Y: " + event.nativeEvent.contentOffset.y)
+    // Assume that position always starts at the top
+    
   }
 
   render() {
@@ -14,7 +16,7 @@ export default class App extends React.Component {
       const PATTERN = [1000, 2000, 3000]
       Vibration.vibrate(PATTERN)
     return (
-      <ScrollView style={styles.container} onScroll = { this.handleScroll } scrollEventThrottle = {1}>
+      <ScrollView style={styles.container} onScroll = { this.handleScroll } scrollEventThrottle = {16}>
       <View style={styles.text}>
       <Text>Welcome! Skim your finger to navigate.</Text>
       </View>
