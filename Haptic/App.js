@@ -5,7 +5,7 @@ export default class App extends React.Component {
   render() {
       const DURATION = 10000
       const PATTERN = [1000, 2000, 3000]
-      Vibration.vibrate(PATTERN, true)
+      Vibration.vibrate(PATTERN)
     return (
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
